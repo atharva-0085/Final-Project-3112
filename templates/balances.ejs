@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Balances</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Net Balances</h1>
+        <ul>
+            <% for (let user in balances) { let balance = balances[user]; %>
+                <li>
+                    <strong><%= user %></strong>:
+                    <% if (balance > 0) { %>
+                        gets $<%= balance.toFixed(2) %>
+                    <% } else if (balance < 0) { %>
+                        owes $<%= (-balance).toFixed(2) %>
+                    <% } else { %>
+                        is settled
+                    <% } %>
+                </li>
+            <% } %>
+        </ul>
+        <br>
+        <a href="/" style="
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(to right, #00f5d4, #3a86ff);
+  color: #000;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+">
+  Back to Home
+</a>
+
+
+    </div>
+</body>
+</html>

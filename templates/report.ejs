@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense Report</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #0f1117, #1a1c2e);
+      color: white;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #1f2029;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    .expense {
+      background: #2b2d36;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .expense h3 {
+      margin: 0 0 10px;
+    }
+    .expense-actions {
+      margin-top: 10px;
+    }
+    .expense-actions form {
+      display: inline;
+    }
+    .btn {
+      background-color: #00f5d4;
+      color: black;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .btn:hover {
+      background-color: #00bbf9;
+    }
+    a.btn {
+      text-decoration: none;
+      padding: 6px 12px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Expense Report</h1>
+    <% if (expenses.length === 0) { %>
+      <p>No expenses logged yet.</p>
+    <% } %>
+    <% expenses.forEach(e => { %>
+      <div class="expense">
+        <h3><%= e.description %> - $<%= e.amount %></h3>
+        <p><strong>Payer:</strong> <%= e.payer.name %></p>
+        <p><strong>Participants:</strong>
+          <%= e.participants.map(p => p.name).join(', ') %>
+        </p>
+        <p><strong>Date:</strong> <%= e.timestamp %></p>
+        <div class="expense-actions">
+          <a class="btn" href="/edit_expense/<%= e.id %>">Edit</a>
+          <form action="/delete_expense/<%= e.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this expense?');">
+            <button class="btn" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+    <br>
+    <a class="btn" href="/">Back to Home</a>
+  </div>
+</body>
+</html>

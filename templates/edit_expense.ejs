@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Expense</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #0f1117, #1a1c2e);
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #1f2029;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      background: #2b2d36;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #00f5d4;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #00bbf9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Expense</h2>
+    <form method="POST" action="/edit_expense/<%= expense.id %>">
+      <label>Description</label>
+      <input type="text" name="description" value="<%= expense.description %>" required>
+      
+
+      <label>Amount</label>
+      <input type="number" name="amount" step="0.01" value="<%= expense.amount %>" required>
+
+      <label>Payer</label>
+      <select name="payer" required>
+        <% users.forEach(u => { %>
+          <option value="<%= u.id %>" <%= u.id === expense.payer_id ? "selected" : "" %>><%= u.name %></option>
+        <% }) %>
+      </select>
+
+      <label>Participants</label>
+      <% users.forEach(u => { %>
+        <label style="font-weight: normal;">
+          <input type="checkbox" name="participants" value="<%= u.id %>" 
+            <%= expense.participants.includes(u.id) ? "checked" : "" %> >
+          <%= u.name %>
+        </label>
+      <% }) %>
+
+      
+      <a href="/report" style="color: #d178ff; display: inline-block; margin-bottom: 20px;">← Back to Report</a>
+
+      <button type="submit">Update Expense</button>
+    </form>
+  </div>
+</body>
+</html>

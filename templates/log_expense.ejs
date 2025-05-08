@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log Expense</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Log Expense</h1>
+        <form method="post">
+            <label>Description:</label>
+            <input type="text" name="description" required>
+
+            <label>Amount:</label>
+            <input type="number" step="0.01" name="amount" required>
+
+            <label>Payer:</label>
+            <select name="payer">
+                <% users.forEach(user => { %>
+                    <option value="<%= user.id %>"><%= user.name %></option>
+                <% }) %>
+            </select>
+
+            <label>Participants:</label>
+            <% users.forEach(user => { %>
+                <label><input type="checkbox" name="participants" value="<%= user.id %>"> <%= user.name %></label><br>
+            <% }) %>
+
+            <input type="submit" value="Log Expense">
+        </form>
+
+        <br>
+        <a href="/" style="
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(to right, #00f5d4, #3a86ff);
+  color: #000;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+">
+  Back to Home
+</a>
+
+    </div>
+</body>
+</html>
